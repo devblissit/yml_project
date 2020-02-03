@@ -1,0 +1,90 @@
+bioguide: SWe00196
+contact_form:
+  method: post
+  action: "https://www.governor.state.nm.us/contact/"
+  steps:
+    - visit: "https://www.governor.state.nm.us/contact/"
+    - fill_in:
+        - name: et_pb_contact_firstname_0
+          selector: "#et_pb_contact_firstname_0"
+          value: $NAME_FIRST
+          required: true
+        - name: et_pb_contact_lastname_0
+          selector: "#et_pb_contact_lastname_0"
+          value: $NAME_LAST
+          required: true
+        - name: et_pb_contact_address_0
+          selector: "#et_pb_contact_address_0"
+          value: $ADDRESS_STREET
+          required: true
+        - name: et_pb_contact_city_0
+          selector: "#et_pb_contact_city_0"
+          value: $ADDRESS_CITY
+          required: true
+        - name: et_pb_contact_state_0
+          selector: "#et_pb_contact_state_0"
+          value: $ADDRESS_STATE_POSTAL_ABBREV
+          required: true
+        - name: et_pb_contact_zip_0
+          selector: "#et_pb_contact_zip_0"
+          value: $ADDRESS_ZIP5
+          required: true
+        - name: et_pb_contact_email_0
+          selector: "#et_pb_contact_email_0"
+          value: $EMAIL
+          required: true
+        - name: et_pb_contact_phonenumber_0
+          selector: "#et_pb_contact_phonenumber_0"
+          value: $PHONE
+          required: true
+        - name: et_pb_contact_message_0
+          selector: "#et_pb_contact_message_0"
+          value: $MESSAGE
+          required: true
+    - select:
+        - name: et_pb_contact_issue_0
+          selector: "#et_pb_contact_issue_0"
+          value: $TOPIC
+          required: true
+          options:
+            - Agriculture
+            - Budget
+            - Defense
+            - Education
+            - Energy
+            - Environmental
+            - Government Issues
+            - Health
+            - Homeland Security
+            - Immigration
+            - International Relations
+            - Judicial
+            - Labor
+            - Social Issues
+            - Social Security
+            - Taxes
+            - Telecommunications
+            - Transportation
+            - Trade
+            - Veterans
+            - Welfare
+            - Other Issues
+        - name: et_pb_contact_response_0
+          selector: "#et_pb_contact_response_0"
+          value: "Yes please contact me"
+          required: true
+          options:
+            - Yes please contact me
+            - No I wanted to voice my opinion
+    - javascript:
+        - value: "document.querySelector('.et_pb_contact_captcha').value = parseInt(document.querySelector('.et_pb_contact_captcha_question').innerText.split(' ')[0]) + parseInt(document.querySelector('.et_pb_contact_captcha_question').innerText.split(' ')[2]);"
+    - click_on:
+        - selector: ".et_pb_contact_submit"
+    - find:
+        - selector: "p"
+          value: "Thanks for contacting us"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Thanks for contacting us

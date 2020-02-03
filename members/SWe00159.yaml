@@ -1,0 +1,33 @@
+bioguide: SWe00159
+contact_form:
+  method: post
+  action: /contact-governor-cooper
+  steps:
+    - visit: "http://governor.nc.gov/contact-governor-cooper"
+    - fill_in:
+        - name: "submitted[first_name]"
+          selector: "#edit-submitted-first-name"
+          value: $NAME_FIRST
+          required: true
+        - name: "submitted[last_name]"
+          selector: "#edit-submitted-last-name"
+          value: $NAME_LAST
+          required: true
+        - name: "submitted[email]"
+          selector: "#edit-submitted-email"
+          value: $EMAIL
+          required: true
+        - name: "submitted[message]"
+          selector: "#edit-submitted-message"
+          value: $MESSAGE
+          required: true
+        - recaptcha:
+          - value: true
+    - click_on:
+        - value: Submit
+          selector: ".webform-submit"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: "Thank you for"

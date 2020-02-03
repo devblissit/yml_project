@@ -1,0 +1,44 @@
+bioguide: SWe00053
+contact_form:
+  method: post
+  action: "/contact-gov-scott/email-the-governor/#formBuilderCSSIDEmail_the_Governor?PHPSESSID=9p08p76cmbad46854ohfbi3jv5"
+  steps:
+    - visit: "https://www.flgov.com/email-the-governor/"
+    - wait:
+        - value: 3
+    - fill_in:
+        - name: "your-name"
+          selector: "input[name='your-name']"
+          value: $NAME_FULL
+          required: true
+        - name: "your-email"
+          selector: "input[name='your-email']"
+          value: $EMAIL
+          required: true
+        - name: "your-county"
+          selector: "input[name='your-county']"
+          value: $ADDRESS_COUNTY
+          required: true
+        - name: "your-subject"
+          selector: "input[name='your-subject']"
+          value: $SUBJECT
+        - name: "your-message"
+          selector: "textarea[name='your-message']"
+          value: $MESSAGE
+          required: true
+        - name: captcha-778
+          selector: "input[name='captcha-778']"
+          captcha_selector: "img.wpcf7-captcha-captcha-778"
+          value: $CAPTCHA_SOLUTION
+          required: true
+    - javascript:
+        - value: "document.querySelector('.wpcf7-form').action = 'https://www.flgov.com/wp-json/contact-form-7/v1/contact-forms/87729/feedback'"
+    - javascript:
+        - value: "document.querySelector('.wpcf7-form').submit()"
+    - wait:
+        - value: 30
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Your form was successfully submitted.

@@ -1,0 +1,96 @@
+bioguide: SWe00134
+contact_form:
+  method: post
+  action: "http://mn.gov/gov-stat/cgi-bin/TFMail.cgi"
+  steps:
+    - visit: "https://mn.gov/governor/contact/"
+    - fill_in:
+        - name: PREFIX
+          selector: "#prefix"
+          value: $NAME_PREFIX
+          required: true
+        - name: firstname
+          selector: "#firstname"
+          value: $NAME_FIRST
+          required: true
+        - name: lastname
+          selector: "#lastname"
+          value: $NAME_LAST
+          required: true
+        - name: address1
+          selector: "#address1"
+          value: $ADDRESS_STREET
+          required: true
+        - name: city
+          selector: "#city"
+          value: $ADDRESS_CITY
+          required: true
+        - name: zipcode
+          selector: "#zipcode"
+          value: $ADDRESS_ZIP5
+          required: true
+        - name: phone
+          selector: "#phone"
+          value: $PHONE
+          required: true
+        - name: email
+          selector: "#email.form-control"
+          value: $EMAIL
+          required: true
+        - name: subject
+          selector: "#subject"
+          value: $SUBJECT
+          required: true
+        - name: comment
+          selector: "#comment"
+          value: $MESSAGE
+          required: true
+          options:
+            max_length: 10000
+    - select:
+        - name: topic
+          selector: "#topic"
+          value: $TOPIC
+          required: true
+          options:
+            - Agriculture
+            - Budget
+            - Commerce and Banking
+            - Education Higher
+            - Education K-12
+            - Elections
+            - Energy
+            - Environment
+            - Federal Relations
+            - Gambling
+            - Health and Human Services
+            - Health Insurance
+            - Housing
+            - Human Rights
+            - Jobs and Training
+            - Labor and Industry
+            - Military Affairs
+            - Public Safety, Crimes
+            - Senior Issues
+            - Student Project
+            - Taxes
+            - Telecommunications
+            - Transportation and Infrastructure
+            - Tribal Issues
+            - Veterans Affairs
+            - Others
+    - javascript:
+      - value: document.querySelector("#g-recaptcha-response").style.display = "block";
+    - recaptcha:
+        - value: true
+    - click_on:
+        - value: Submit
+          selector: ".btn-primary"
+    - find:
+        - selector: "p"
+          value: "We have received and are reviewing your inquiry. Thank you!"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: We have received and are reviewing your inquiry. Thank you!

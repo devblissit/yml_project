@@ -1,0 +1,48 @@
+bioguide: SWe00003
+contact_form:
+  method: post
+  action: contact.aspx
+  steps:
+    - visit: "http://governor.alabama.gov/contact"
+    - fill_in:
+        - name: "name"
+          selector: "#freeform_name"
+          value: $NAME_FULL
+          required: true
+        - name: email
+          selector: "#freeform_email"
+          value: $EMAIL
+          required: true
+        - name: street_address
+          selector: "#freeform_street_address"
+          value: $ADDRESS_STREET
+          required: true
+        - name: city
+          selector: "#freeform_city"
+          value: $ADDRESS_CITY
+          required: true
+        - name: state
+          selector: "#freeform_state"
+          value: $ADDRESS_STATE_POSTAL_ABBREV
+          required: true
+        - name: zip_code
+          selector: "#freeform_zip_code"
+          value: $ADDRESS_ZIP5
+          required: true
+        - name: user_message
+          selector: "#freeform_user_message"
+          value: $MESSAGE
+          required: true
+        - name: captcha
+          selector: "input[name=captcha]"
+          captcha_selector: "#contactForm img"
+          value: $CAPTCHA_SOLUTION
+          required: true
+    - click_on:
+        - value: Submit
+          selector: "input[name=submit]"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Thank you for contacting us.

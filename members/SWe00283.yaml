@@ -1,0 +1,95 @@
+bioguide: SWe00283
+contact_form:
+  method: post
+  action: /contact-us/opinion
+  steps:
+    - visit: "http://governor.vermont.gov/contact-us/message"
+    - fill_in:
+        - name: "submitted[FIRST]"
+          selector: "#edit-submitted-first"
+          value: $NAME_FIRST
+          required: true
+        - name: "submitted[LAST]"
+          selector: "#edit-submitted-last"
+          value: $NAME_LAST
+          required: true
+        - name: "submitted[EMAIL]"
+          selector: "#edit-submitted-email"
+          value: $EMAIL
+          required: true
+        - name: "submitted[ADDR1]"
+          selector: "#edit-submitted-addr1"
+          value: $ADDRESS_STREET
+          required: true
+        - name: "submitted[CITY]"
+          selector: "#edit-submitted-city"
+          value: $ADDRESS_CITY
+          required: true
+        - name: "submitted[PHONE]"
+          selector: "#edit-submitted-phone"
+          value: $PHONE_PARENTHESES
+          required: true
+        - name: "submitted[MSG]"
+          selector: "#edit-submitted-msg"
+          value: $MESSAGE
+          required: true
+    - select:
+        - name: "submitted[STATE]"
+          selector: "#edit-submitted-state"
+          value: "VT"
+          required: true
+        - name: "submitted[ISSUE]"
+          selector: "#edit-submitted-issue"
+          value: $TOPIC
+          required: true
+          options:
+            - Abortion
+            - Agriculture
+            - ATVs
+            - Broadband
+            - Budget
+            - Corrections
+            - Courts
+            - Death with Dignity
+            - Economy
+            - Education
+            - Emergency Management
+            - Energy
+            - Environment
+            - Flooding
+            - Government Operations
+            - Gun Control
+            - Health Care
+            - Human Services
+            - Immigration
+            - Marijuana
+            - Natural Resources
+            - Public Safety
+            - Scheduling Request
+            - Taxes
+            - Technology
+            - Thank You
+            - Town Meetings
+            - Transportation
+            - UVM
+            - Veterans
+            - Wildlife
+            - Wind Energy
+            - Yankee Nuclear
+            - Other
+    - uncheck:
+        - name: "submitted[AFFL][EMAIL.OPTIN]"
+          selector: "#edit-submitted-affl-1"
+          value: EMAIL.OPTIN
+    - javascript:
+      - value: document.querySelector("#g-recaptcha-response").style.display = "block";
+    - recaptcha:
+        - value: true
+    - click_on:
+        - value: Submit
+          selector: "#edit-submit"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Your submission has been received by Governor Phil Scott.

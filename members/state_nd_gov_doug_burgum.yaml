@@ -1,0 +1,47 @@
+bioguide: state_nd_gov_doug_burgum
+contact_form:
+  method: post
+  action: "/contact-us"
+  steps:
+    - visit: "https://www.governor.nd.gov/contact-us"
+    - wait:
+        - value: 3
+    - fill_in:
+        - name: "your_first_name"
+          selector: "#edit-your-first-name"
+          value: $NAME_FIRST
+          required: true
+        - name: "last_name"
+          selector: "#edit-last-name"
+          value: $NAME_LAST
+          required: true
+    - wait:
+        - value: 3
+    - fill_in:
+        - name: "subject"
+          selector: "#edit-subject"
+          value: $SUBJECT
+          required: true
+    - wait:
+        - value: 3
+    - fill_in:
+        - name: "email_address"
+          selector: "#edit-email-address"
+          value: $EMAIL
+          required: true
+    - wait:
+        - value: 3
+    - fill_in:
+        - name: "comments"
+          selector: "#edit-comments"
+          value: $MESSAGE
+          required: true
+    - wait:
+        - value: 3
+    - click_on:
+        - selector: ".edit-submit"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Thank you for your message

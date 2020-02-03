@@ -1,0 +1,139 @@
+bioguide: blm_fuel_breaks_02012018
+contact_form:
+  method: POST
+  action: "/epl-front-office/eplanning/comments/commentSubmission.do;jsessionid=2ECEE6CD85335204F68835AF147C5BF0?commentPeriodId=57799"
+  steps:
+    - visit: "https://eplanning.blm.gov/epl-front-office/eplanning/comments/commentSubmission.do?commentPeriodId=57799"
+    - javascript:
+        - value: "document.querySelector('[name=\"commentSubForm.commentSubComment.fckText\"]').style.display = \"block\";"
+    - javascript:
+        - value: "document.querySelector('[name=\"commentSubForm.commentSubComment.fckText\"]').style.visibility = \"initial\";"
+    - javascript:
+        - value: "document.querySelector('.epl_dialog_action_button_panel').style.position = \"relative\";"
+    - fill_in:
+        - selector: "[name='commentSubComment.commentTitle']"
+          name: "commentSubComment.commentTitle"
+          value: $SUBJECT
+          required: true
+        - selector: "[name='commentSubForm.commentSubComment.fckText']"
+          name: "commentSubForm.commentSubComment.fckText"
+          value: $MESSAGE
+          required: true
+          options:
+            max_length: 10000
+    - javascript:
+        - value: "document.querySelector('input.epl_dialog_action_button[value=Next]').click()"
+    - find:
+        - selector: "[name='commentSubNameAddress.firstName']"
+    - javascript:
+        - value: "Array.prototype.forEach.call(document.querySelectorAll('style,[rel=\"stylesheet\"],[type=\"text/css\"]'), function(element){ 
+try{ element.parentNode.removeChild(element) } catch(err){} });"
+    - javascript:
+        - value: "document.querySelector('.epl_dialog_action_button_panel').style.position = \"relative\";"
+    - fill_in:
+        - selector: "[name='commentSubNameAddress.firstName']"
+          name: "commentSubNameAddress.firstName"
+          value: $NAME_FIRST
+          required: true
+        - selector: "[name='commentSubNameAddress.lastName']"
+          name: "commentSubNameAddress.lastName"
+          value: $NAME_LAST
+          required: true
+        - selector: "[name='commentSubNameAddress.address1']"
+          name: "commentSubNameAddress.address1"
+          value: $ADDRESS_STREET
+          required: true
+        - selector: "[name='commentSubNameAddress.city']"
+          name: "commentSubNameAddress.city"
+          value: $ADDRESS_CITY
+          required: true
+        - selector: "[name='commentSubNameAddress.zip']"
+          name: "commentSubNameAddress.zip"
+          value: $ADDRESS_ZIP5
+          required: true
+        - selector: "[name='commentSubNameAddress.emailAddress']"
+          name: "commentSubNameAddress.emailAddress"
+          value: $EMAIL
+          required: true
+    - select:
+        - selector: "[name='commentSubNameAddress.selectedState']"
+          name: "commentSubNameAddress.selectedState"
+          value: $ADDRESS_STATE_FULL
+          required: true
+          options:            
+            - Alabama
+            - Alaska
+            - Arizona
+            - Arkansas
+            - California
+            - Colorado
+            - Connecticut
+            - Delaware
+            - District of Columbia
+            - Florida
+            - Georgia
+            - Hawaii
+            - Idaho
+            - Illinois
+            - Indiana
+            - Iowa
+            - Kansas
+            - Kentucky
+            - Louisiana
+            - Maine
+            - Maryland
+            - Massachusetts
+            - Michigan
+            - Minnesota
+            - Mississippi
+            - Missouri
+            - Montana
+            - Nebraska
+            - Nevada
+            - New Hampshire
+            - New Jersey
+            - New Mexico
+            - New York
+            - North Carolina
+            - North Dakota
+            - Ohio
+            - Oklahoma
+            - Oregon
+            - Pennsylvania
+            - Rhode Island
+            - South Carolina
+            - South Dakota
+            - Tennessee
+            - Texas
+            - Utah
+            - Vermont
+            - Virginia
+            - Washington
+            - West Virginia
+            - Wisconsin
+            - Wyoming
+    - click_on:
+        - selector: "[name='commentSubNameAddress.representsOrg'][value='N']"
+    - javascript:
+        - value: "document.querySelector('input.epl_dialog_action_button[value=Next]').click()"
+    - find:
+        - selector: "input.epl_bo_comments_form_radio[name=agreement_43784][value=Y]"
+    - javascript:
+        - value: "Array.prototype.forEach.call(document.querySelectorAll('style,[rel=\"stylesheet\"],[type=\"text/css\"]'), function(element){ 
+try{ element.parentNode.removeChild(element) } catch(err){} });"
+    - javascript:
+        - value: "document.querySelector('.epl_dialog_action_button_panel').style.position = \"relative\";"
+    - click_on:
+        - selector: "input.epl_bo_comments_form_radio[name=agreement_43784][value=Y]"
+    - click_on:
+        - selector: "input.epl_bo_comments_form_radio[name=agreement_43785][value=Y]"
+    - javascript:
+        - value: "document.querySelector('input.epl_dialog_action_button[value=Submit]').click()"
+    - find:
+        - selector: ".epl_bo_comments_form_title"
+          value: "Agreements"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Submission Successful

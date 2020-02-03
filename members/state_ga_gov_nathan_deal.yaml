@@ -1,0 +1,78 @@
+bioguide: state_ga_gov_nathan_deal
+contact_form:
+  method: POST
+  action: "https://gov.georgia.gov/webform/constituent-services"
+  steps:
+    - visit: "https://gov.georgia.gov/webform/constituent-services"
+    - fill_in:
+        - name: "first_name"
+          selector: "#edit-first-name"
+          value: $NAME_FIRST
+          required: true
+        - name: "last_name"
+          selector: "#edit-last-name"
+          value: $NAME_LAST
+          required: true
+        - name: "address_line_1"
+          selector: "#edit-address-line-1"
+          value: $ADDRESS_STREET
+          required: true
+        - name: "city"
+          selector: "#edit-city"
+          value: $ADDRESS_CITY
+          required: true
+        - name: "zip_code"
+          selector: "#edit-zip-code"
+          value: $ADDRESS_ZIP5
+          required: true
+        - name: "phone_number"
+          selector: "#edit-phone-number"
+          value: $PHONE
+          required: true
+        - name: "email"
+          selector: "#edit-email"
+          value: $EMAIL
+          required: true
+        - name: "please_provide_a_brief_description_about_your_request___concern"
+          selector: "#edit-please-provide-a-brief-description-about-your-request-concern"
+          value: $MESSAGE
+          required: true
+
+    - select:
+        - name: "please_select_which_agency_your_request_relates_to"
+          selector: "#edit-please-select-which-agency-your-request-relates-to"
+          value: $TOPIC
+          required: true
+          options:
+            Child Protective Services: 1
+            Child Support: 2
+            Consumer Protection: 3
+            Corrections (Prison System): 4
+            Dept. of Agriculture: 5
+            Dept. of Community Affairs/Housing: 6
+            Dept. of Community Health: 7
+            Dept. of Driver Services: 8
+            Dept. of Natural Resources: 9
+            Dept. of Labor: 10
+            Dept. of Revnue: 11
+            Dept. of Public Safety: 12
+            Dept. of Veterans Services: 13
+            Education: 14
+            Environment: 15
+            Federal: 16
+            Food Stamps: 17
+            Foster Care: 18
+            Healthcare: 19
+            Legal: 20
+            Legislature: 21
+            Medicaid: 22
+    - click_on:
+        - value: Submit
+          selector: "input[name='op']"
+    - wait:
+        - value: 5
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Thank you for contacting us.

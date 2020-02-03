@@ -1,0 +1,53 @@
+bioguide: state_az_gov_doug_ducey
+contact_form:
+  method: post
+  action: "/governor/form/contact-governor-ducey"
+  steps:
+    - visit: "http://www.azgovernor.gov/governor/form/contact-governor-ducey"
+    - check:
+        - name: "submitted[reason]"
+          selector: "#edit-submitted-reason-2"
+          value: "Comment"
+    - fill_in:
+        - name: "submitted[first_name]"
+          selector: "#edit-submitted-first-name"
+          value: $NAME_FIRST
+          required: true
+        - name: "submitted[last_name]"
+          selector: "#edit-submitted-last-name"
+          value: $NAME_LAST
+          required: true
+        - name: "submitted[email_address]"
+          selector: "#edit-submitted-email-address"
+          value: $EMAIL
+          required: true
+        - name: "submitted[comments]"
+          selector: "#edit-submitted-comments"
+          value: $MESSAGE
+          required: true
+    - select:
+        - name: "submitted[salutation]"
+          selector: "#edit-submitted-salutation"
+          value: $NAME_PREFIX
+          required: true
+          options:
+            Mr.: "Mr."
+            Ms.: "Ms."
+            Mrs.: "Mrs."
+            Dr.: "Dr."
+        - name: "submitted[subject]"
+          selector: "#edit-submitted-subject"
+          value: "Other"
+          required: true
+          options:
+            "Other": "Other"
+    - recaptcha:
+        - value: true
+    - click_on:
+        - value: Send Email
+          selector: ".webform-submit"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: "Thank you for contacting Governor Ducey. Your email has been sent."

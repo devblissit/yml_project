@@ -1,0 +1,125 @@
+bioguide: state_pa_gov_thomas_wolf
+contact_form:
+  method: post
+  action: ""
+  steps:
+    - visit: "https://www.governor.pa.gov/contact/"
+    - javascript: 
+        - value: "Array.prototype.forEach.call(document.querySelectorAll('div.reveal-overlay'), function(element){ try{ element.parentNode.removeChild(element) } catch(err){} });"
+    - fill_in:
+        - name: nf-field-1351
+          selector: "#nf-field-1351"
+          value: $NAME_FIRST
+          required: true
+        - name: nf-field-1361
+          selector: "#nf-field-1361"
+          value: $NAME_LAST
+          required: true
+        - name: nf-field-1371
+          selector: "#nf-field-1371"
+          value: $ADDRESS_STREET
+          required: true
+        - name: nf-field-1381
+          selector: "#nf-field-1381"
+          value: $ADDRESS_CITY
+          required: true
+        - name: zip
+          selector: "#nf-field-1411"
+          value: $ADDRESS_ZIP5
+          required: true
+        - name: email
+          selector: "#nf-field-1421"
+          value: $EMAIL
+          required: true
+        - name: phone
+          selector: "#nf-field-1431"
+          value: $PHONE
+          required: true
+        - name: nf-field-1461
+          selector: "#nf-field-1461"
+          value: $MESSAGE
+          required: true
+    - select:
+        - name: nf-field-1401
+          selector: "#nf-field-1401"
+          value: $ADDRESS_COUNTY
+          required: true
+          options:
+            Adams: adams
+            Allegheny: allegheny
+            Armstrong: armstrong
+            Beaver: beaver
+            Bedford: bedford
+            Berks: berks
+            Blair: blair
+            Bradford: bradford
+            Bucks: bucks
+            Butler: butler
+            Cambria: cambria
+            Cameron: cameron
+            Carbon: carbon
+            Centre: centre
+            Chester: chester
+            Clarion: clarion
+            Clearfield: clearfield
+            Clinton: clinton
+            Columbia: columbia
+            Crawford: crawford
+            Cumberland: cumberland
+            Dauphin: dauphin
+            Delaware: delaware
+            Elk: elk
+            Erie: erie
+            Fayette: fayette
+            Forest: forest
+            Franklin: franklin
+            Fulton: fulton
+            Greene: greene
+            Huntingdon: huntingdon
+            Indiana: indiana
+            Jefferson: jefferson
+            Juniata: juniata
+            Lackawanna: lackawanna
+            Lancaster: lancaster
+            Lawrence: lawrence
+            Lebanon: lebanon
+            Lehigh: lehigh
+            Luzerne: luzerne
+            Lycoming: lycoming
+            McKean: mckean
+            Mercer: mercer
+            Mifflin: mifflin
+            Monroe: monroe
+            Montgomery: montgomery
+            Montour: montour
+            Northampton: northampton
+            Northumberland: northumberland
+            Perry: perry
+            Philadelphia: philadelphia
+            Pike: pike
+            Potter: potter
+            Schuylkill: schuylkill
+            Snyder: snyder
+            Somerset: somerset
+            Sullivan: sullivan
+            Susquehanna: susquehanna
+            Tioga: tioga
+            Union: union
+            Venango: venango
+            Warren: warren
+            Washington: washington
+            Wayne: wayne
+            Westmoreland: westmoreland
+            Wyoming: wyoming
+            York: york
+    - javascript:
+        - value: "document.querySelector('#nf-field-1471').click();"
+    - wait:
+        - value: 10
+    - find:
+        - selector: ".nf-response-msg"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Your form has been successfully submitted.

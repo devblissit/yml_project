@@ -1,0 +1,37 @@
+bioguide: SWe00107
+contact_form:
+  method: post
+  action: "/action.cfm?md=form&task=submitForm&fmid=4&sfmid=0"
+  steps:
+    - visit: "http://gov.louisiana.gov/index.cfm/form/home/4"
+    - wait:
+        - value: 5
+    - fill_in:
+        - name: firstName
+          selector: "form[name='frmXForm'] input[name='firstName']"
+          value: $NAME_FIRST
+          required: true
+        - name: lastName
+          selector: "form[name='frmXForm'] input[name='lastName']"
+          value: $NAME_LAST
+          required: true
+        - name: email
+          selector: "form[name='frmXForm'] input[name='email']"
+          value: $EMAIL
+          required: true
+        - name: comment
+          selector: "form[name='frmXForm'] textarea[name='f293']"
+          value: $MESSAGE
+          required: true
+    - javascript:
+      - value: document.querySelector("#g-recaptcha-response").style.display = "block";          
+    - recaptcha:
+        - value: true
+    - click_on:
+        - value: Submit
+          selector: "#btn-submit"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Thank you for contacting

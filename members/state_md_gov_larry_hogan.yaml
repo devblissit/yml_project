@@ -1,0 +1,109 @@
+bioguide: state_md_gov_larry_hogan
+contact_form:
+  method: post
+  action: ""
+  steps:
+    - visit: "https://governor.maryland.gov/contact-the-governor/"
+    - fill_in:
+        - name: "first-name"
+          selector: "#first-name"
+          value: $NAME_FIRST
+          required: true
+        - name: "last-name"
+          selector: "#last-name"
+          value: $NAME_LAST
+          required: true
+        - name: "addr-1"
+          selector: "#addr-1"
+          value: $ADDRESS_STREET
+          required: true
+        - name: city
+          selector: "#city"
+          value: $ADDRESS_CITY
+          required: true
+        - name: zip
+          selector: "#zip"
+          value: $ADDRESS_ZIP5
+          required: true
+        - name: email
+          selector: "#email"
+          value: $EMAIL
+          required: true
+        - name: "textarea-your-message"
+          selector: "#your-message"
+          value: $MESSAGE
+          required: true
+          options:
+            max_length: 2000
+    - select:
+        - name: state
+          selector: "#state"
+          value: $ADDRESS_STATE_FULL
+          required: true
+          options:
+            - Maryland
+        - name: "menu-612"
+          selector: "select[name='menu-612']"
+          value: $TOPIC
+          required: true
+          options:
+            - Agriculture
+            - Animal Welfare
+            - Banking
+            - Broadband
+            - Child Custody
+            - Correctional Services
+            - Criminal Justice
+            - Developmental Disabilities Administration
+            - Disabilities
+            - Economic Development
+            - Education
+            - Emergency Preparedness
+            - Energy
+            - Energy Assistance
+            - Environment
+            - Funding Request
+            - Gaming
+            - Grant Request
+            - Health
+            - Higher Education
+            - Homeland Security
+            - Housing
+            - Human Rights
+            - Human Services
+            - Immigration
+            - Infrastructure
+            - Insurance
+            - Jobs
+            - Juvenile Services
+            - Legislation
+            - LGBT Rights
+            - Military/Naval Affairs
+            - Other
+            - Parks and Recreation
+            - Public Safety
+            - Public Utilities
+            - Taxes
+            - Tourism
+            - Transportation
+            - Unemployment
+            - Veterans Affairs
+            - Women's Issues
+    - javascript:
+        - value: "document.querySelector('input[name=g-recaptcha-response]').remove();"
+    - javascript:
+        - value: "document.querySelector('[name=_wpcf7_container_post]').insertAdjacentHTML('beforebegin', '<textarea name=g-recaptcha-response></textarea>');"
+    - javascript:
+        - value: "document.querySelector('.wpcf7-form > div').style.display = 'block';"
+    - recaptcha:
+        - value: true
+    - click_on:
+        - value: Submit
+          selector: ".wpcf7-submit"
+    - wait:
+        - value: 5
+  success:
+    headers:
+      status: 200
+    body:
+      contains: "Thank you for your"

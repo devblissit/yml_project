@@ -1,0 +1,55 @@
+bioguide: state_ok_governor_mary_fallin
+contact_form:
+  method: post
+  action: "https://iqconnect.lmhostediq.com/iqextranet/EForm.aspx?__cid=FSL_OKGOV&__fid=100002&iframe=Y"
+  steps:
+    - visit: "https://iqconnect.lmhostediq.com/iqextranet/EForm.aspx?__cid=FSL_OKGOV&__fid=100002&iframe=Y"
+    - fill_in:
+        - name: qi_1_first_name
+          selector: "input[name='qi_1_first_name']"
+          value: $NAME_FIRST
+          required: true
+        - name: qi_1_last_name
+          selector: "input[name='qi_1_last_name']"
+          value: $NAME_LAST
+          required: true
+        - name: qi_1_addr_1
+          selector: "input[name='qi_1_addr_1']"
+          value: $ADDRESS_STREET
+          required: true
+        - name: qi_1_city
+          selector: "input[name='qi_1_city']"
+          value: $ADDRESS_STREET
+          required: true
+        - name: qi_1_zip
+          selector: "input[name='qi_1_zip']"
+          value: $ADDRESS_ZIP5
+          required: true
+        - name: qi_1_email
+          selector: "input[name='qi_1_email']"
+          value: $EMAIL
+          required: true
+        - name: qi_8
+          selector: "textarea[name='qi_8']"
+          value: $MESSAGE
+          required: true
+    - select:
+        - name: qi_1_state
+          selector: "#qi_1_state"
+          value: 43_OK
+          required: true
+          options:
+            43_OK
+    - click_on:
+        - value: Please submit your comment or opinion
+          selector: "#btn_submit"
+    - find:
+        - selector: "#btn_rev_submit"
+    - click_on:
+        - value: Please submit your comment or opinion
+          selector: "#btn_rev_submit"
+  success:
+    headers:
+      status: 200
+    body:
+      contains: Sign Up For Our
